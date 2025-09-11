@@ -25,6 +25,21 @@ var atlantaWeather = {
     weathercode: 0,
   },
 };
-setText("temp", atlantaWeather.current_weather.temperature);
-setText("wind", atlantaWeather.current_weather.windspeed);
-setText("code", atlantaWeather.current_weather.weathercode);
+onEvent("weather", "click", function () {
+  setText("temp", atlantaWeather.current_weather.temperature);
+  setText("wind", atlantaWeather.current_weather.windspeed);
+  setText("code", atlantaWeather.current_weather.weathercode);
+});
+
+const requestOptions = {
+  method: "GET",
+  redirect: "follow",
+};
+
+fetch(
+  "https://api.open-meteo.com/v1/forecast?latitude=33.7489924&longitude=-84.3902644&current_weather=true&temperature_unit=fahrenheit",
+  requestOptions
+)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));

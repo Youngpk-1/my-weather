@@ -26,6 +26,21 @@ var newOrleansWeather = {
     weathercode: 0,
   },
 };
-setText("temp", newOrleansWeather.current_weather.temperature);
-setText("wind", newOrleansWeather.current_weather.windspeed);
-setText("code", newOrleansWeather.current_weather.weathercode);
+onEvent("weather", "click", function () {
+  setText("temp", newOrleansWeather.current_weather.temperature);
+  setText("wind", newOrleansWeather.current_weather.windspeed);
+  setText("code", newOrleansWeather.current_weather.weathercode);
+});
+
+const requestOptions = {
+  method: "GET",
+  redirect: "follow",
+};
+
+fetch(
+  "https://api.open-meteo.com/v1/forecast?latitude=29.95&longitude=-90.07&currentweather=true\n",
+  requestOptions
+)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));

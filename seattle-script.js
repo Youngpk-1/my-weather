@@ -25,6 +25,21 @@ var seattleWeather = {
     weathercode: 0,
   },
 };
-setText("temp", seattleWeather.current_weather.temperature);
-setText("wind", seattleWeather.current_weather.windspeed);
-setText("code", seattleWeather.current_weather.weathercode);
+onEvent("weather", "click", function () {
+  setText("temp", seattleWeather.current_weather.temperature);
+  setText("wind", seattleWeather.current_weather.windspeed);
+  setText("code", seattleWeather.current_weather.weathercode);
+});
+
+const requestOptions = {
+  method: "GET",
+  redirect: "follow",
+};
+
+fetch(
+  "https://api.open-meteo.com/v1/forecast?latitude=47.6038321&longitude=-122.330062&current_weather=true&temperature_unit=fahrenheit",
+  requestOptions
+)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
